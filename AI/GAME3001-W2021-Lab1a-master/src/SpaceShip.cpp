@@ -15,6 +15,7 @@ SpaceShip::SpaceShip()
 	getRigidBody()->acceleration = glm::vec2(0.0f, 0.0f);
 	getRigidBody()->isColliding = false;
 	setType(SPACE_SHIP);
+	setMaxSpeed(10.0f);
 }
 
 SpaceShip::~SpaceShip()
@@ -38,13 +39,7 @@ void SpaceShip::draw()
 
 void SpaceShip::update()
 {
-	// magnitude of the direction
-	m_direction = m_destination - getTransform()->position;
-	m_direction = Util::normalize(m_direction);
-
-	getRigidBody()->velocity = m_direction * 30.0f;
-	
-	getTransform()->position += getRigidBody()->velocity;
+	m_Move();
 }
 
 void SpaceShip::clean()
@@ -54,4 +49,22 @@ void SpaceShip::clean()
 void SpaceShip::setDestination(const glm::vec2 destination)
 {
 	m_destination = destination;
+}
+
+void SpaceShip::setMaxSpeed(float speed)
+{
+	m_maxSpeed = speed;
+}
+
+void SpaceShip::m_Move()
+{
+	// direction with magnitude
+	m_direction = m_destination - getTransform()->position;
+
+	// normalized direction
+	m_direction = Util::normalize(m_direction);
+
+	getRigidBody()->velocity = m_direction * m_maxSpeed;
+
+	getTransform()->position += getRigidBody()->velocity;
 }
