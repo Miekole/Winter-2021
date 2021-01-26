@@ -1,6 +1,7 @@
 #include "PlayScene.h"
 #include "Game.h"
 #include "EventManager.h"
+#include "Util.h"
 
 // required for IMGUI
 #include "imgui.h"
@@ -83,6 +84,16 @@ void PlayScene::GUI_Function() const
 	
 	ImGui::Begin("Hidden Controls", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
+	static float speed = 10.0f;
+	if (ImGui::SliderFloat("Max-Speed", &speed, 0.0f, 100.0f))
+	{
+		m_pSpaceShip->setMaxSpeed(speed);
+	}
+	static float angleInRadians = 0.0f;
+	if(ImGui::SliderAngle("Orientation Angle", &angleInRadians));
+	{
+		m_pSpaceShip->setRotation(angleInRadians * Util::Rad2Deg);
+	}
 
 	if(ImGui::Button("Start"))
 	{
@@ -99,10 +110,10 @@ void PlayScene::GUI_Function() const
 
 	ImGui::Separator();
 
-	static float float2[2] = { m_pTarget->getTransform()->position.x, m_pTarget->getTransform()->position.y };
-	if(ImGui::SliderFloat2("My Slider", float2, 0.0f, 800.0f))
+	static float targetPosition[2] = { m_pTarget->getTransform()->position.x, m_pTarget->getTransform()->position.y };
+	if(ImGui::SliderFloat2("My Slider", targetPosition, 0.0f, 800.0f))
 	{
-		m_pTarget->getTransform()->position = glm::vec2(float2[0], float2[1]);
+		m_pTarget->getTransform()->position = glm::vec2(targetPosition[0], targetPosition[1]);
 		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
 	}
 	
