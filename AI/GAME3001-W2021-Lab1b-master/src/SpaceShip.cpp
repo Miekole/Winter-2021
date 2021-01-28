@@ -1,5 +1,7 @@
 #include "SpaceShip.h"
 
+
+#include "Game.h"
 #include "Util.h"
 
 SpaceShip::SpaceShip()
@@ -18,6 +20,8 @@ SpaceShip::SpaceShip()
 	setMaxSpeed(10.0f);
 	setOrientation(glm::vec2(0.0f, -1.0f));
 	setRotation(0.0f);
+	setAccelerationRate(10.0f);
+	setTurnRate(10.0f);
 }
 
 SpaceShip::~SpaceShip()
@@ -63,6 +67,16 @@ void SpaceShip::setOrientation(const glm::vec2 orientation)
 void SpaceShip::setRotation(const float angle)
 {
 	m_rotationAngle = angle;
+
+	const auto offset = -90.0f;
+	const auto angle_in_radius = (angle + offset) * Util::Deg2Rad;
+
+	const auto x = cos(angle_in_radius);
+	const auto y = sin(angle_in_radius);
+	
+	// convert angle to normalized vactor and store in orientation
+	setOrientation((glm::vec2(x, y)));
+	
 }
 
 float SpaceShip::getTurnRate() const
@@ -92,13 +106,36 @@ float SpaceShip::getRotation() const
 
 void SpaceShip::m_Move()
 {
+	auto deltaTime = TheGame::Instance()->getDeltaTime();
+	
 	// direction with magnitude
 	m_targetDirection = m_destination - getTransform()->position;
 	
 	// normalized direction
 	m_targetDirection = Util::normalize(m_targetDirection);
 
-	getRigidBody()->velocity = m_targetDirection * m_maxSpeed;
+	auto target_rotation = Util::signedAngle(getOrientation(), m_targetDirection);
 
+	auto turn_sensitivity = 5.0f;
+
+	if (abs(target_rotation) > turn_sensitivity)// <-- will only turn when outside of turn sensitivity
+	{
+		if (target_rotation > 0.0f)
+		{
+			setRotation((getRotation() + getTurnRate()));
+		}
+		else if (target_rotation < 0.0f)
+		{
+			setRotation(getRotation() - getTurnRate());
+		}
+	}
+	
+	getRigidBody()->acceleration = getOrientation() * getAccelerationRate();
+	
+	getRigidBody()->velocity += getOrientation() * (deltaTime)+
+		0.5f * getRigidBody()->acceleration * (deltaTime); // <-- pf = pi + vi*t + 0.5ai*t^2
+
+	getRigidBody()->velocity = Util::clamp(getRigidBody()->velocity, m_maxSpeed);
+	
 	getTransform()->position += getRigidBody()->velocity;
 }
