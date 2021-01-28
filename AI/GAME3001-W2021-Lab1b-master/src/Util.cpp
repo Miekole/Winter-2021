@@ -41,7 +41,7 @@ float Util::clamp(float value, const float min, const float max)
 // confines a vector to the max_length parameter
 glm::vec2 Util::clamp(glm::vec2 vec, float max_length)
 {
-	const auto sqr_magnitude = squaredMagnitude(vec);
+	const auto sqr_magnitude = Util::squaredMagnitude(vec);
 	if (sqr_magnitude > max_length * max_length)
 	{
 		const auto mag = sqrt(sqr_magnitude);
