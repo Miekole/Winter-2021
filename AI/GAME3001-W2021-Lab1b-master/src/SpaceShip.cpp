@@ -32,7 +32,7 @@ void SpaceShip::draw()
 	TextureManager::Instance()->draw("spaceship", 
 		getTransform()->position.x, getTransform()->position.y, m_rotationAngle, 255, true);
 
-	Util::DrawLine(getTransform()->position, (getTransform()->position + m_orientation * 60.0f) );
+	Util::DrawLine(getTransform()->position, (getTransform()->position + getOrientation() * 60.0f) );
 }
 
 void SpaceShip::update()
@@ -133,7 +133,7 @@ void SpaceShip::m_Move()
 	getRigidBody()->acceleration = getOrientation() * getAccelerationRate();
 	
 	getRigidBody()->velocity += getOrientation() * (deltaTime)+
-		0.5f * getRigidBody()->acceleration * (deltaTime); // <-- pf = pi + vi*t + 0.5ai*t^2
+		0.5f * getRigidBody()->acceleration * (deltaTime * deltaTime); // <-- pf = pi + vi*t + 0.5ai*t^2
 
 	getRigidBody()->velocity = Util::clamp(getRigidBody()->velocity, m_maxSpeed);
 	

@@ -30,6 +30,8 @@ void PlayScene::draw()
 void PlayScene::update()
 {
 	updateDisplayList();
+
+	CollisionManager::AABBCheck(m_pSpaceShip, m_pObstacle);
 }
 
 void PlayScene::clean()
@@ -64,8 +66,12 @@ void PlayScene::start()
 
 	
 	m_pTarget = new Target();
-	m_pTarget->getTransform()->position = glm::vec2(400.0f, 300.0f);
+	m_pTarget->getTransform()->position = glm::vec2(700.0f, 300.0f);
 	addChild(m_pTarget);
+
+	m_pObstacle = new Obstacle();
+	m_pObstacle->getTransform()->position = glm::vec2(500.0f, 300.0f);
+	addChild(m_pObstacle);
 
 	// instantiating spaceship
 	m_pSpaceShip = new SpaceShip();
