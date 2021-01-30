@@ -8,6 +8,7 @@
 #include "Obstacle.h"
 #include "SpaceShip.h"
 #include "Target.h"
+#include "../Template/Car.h"
 
 class PlayScene : public Scene
 {
@@ -30,6 +31,7 @@ private:
 	
 	glm::vec2 m_mousePosition;
 
+	Car* m_pCar;
 	SpaceShip* m_pSpaceShip;
 	Target* m_pTarget;
 	Obstacle* m_pObstacle;

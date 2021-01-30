@@ -31,7 +31,7 @@ void PlayScene::update()
 {
 	updateDisplayList();
 
-	CollisionManager::AABBCheck(m_pSpaceShip, m_pObstacle);
+	CollisionManager::AABBCheck(m_pCar, m_pObstacle);
 }
 
 void PlayScene::clean()
@@ -74,11 +74,11 @@ void PlayScene::start()
 	addChild(m_pObstacle);
 
 	// instantiating spaceship
-	m_pSpaceShip = new SpaceShip();
-	m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 100.0f);
-	m_pSpaceShip->setEnabled(false);
-	m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
-	addChild(m_pSpaceShip);
+	m_pCar = new Car();
+	m_pCar->getTransform()->position = glm::vec2(100.0f, 100.0f);
+	m_pCar->setEnabled(false);
+	m_pCar->setDestination(m_pTarget->getTransform()->position);
+	addChild(m_pCar);
 }
 
 void PlayScene::GUI_Function() const
@@ -94,40 +94,40 @@ void PlayScene::GUI_Function() const
 	static float speed = 10.0f;
 	if(ImGui::SliderFloat("MaxSpeed", &speed, 0.0f, 100.0f))
 	{
-		m_pSpaceShip->setMaxSpeed(speed);
+		m_pCar->setMaxSpeed(speed);
 	}
 
 	static float acceleration_rate = 2.0f;
 	if(ImGui::SliderFloat("Acceleration Rate", &acceleration_rate, 0.0f, 50.0f))
 	{
-		m_pSpaceShip->setAccelerationRate(acceleration_rate);
+		m_pCar->setAccelerationRate(acceleration_rate);
 	}
 
-	static float angleInRadians = m_pSpaceShip->getRotation();
+	static float angleInRadians = m_pCar->getRotation();
 	if(ImGui::SliderAngle("Orientation Angle", &angleInRadians))
 	{
-		m_pSpaceShip->setRotation(angleInRadians * Util::Rad2Deg);
+		m_pCar->setRotation(angleInRadians * Util::Rad2Deg);
 	}
 	
 	static float turn_rate = 5.0f;
 	if(ImGui::SliderFloat("Turn Rate", &turn_rate, 0.0f, 20.0f))
 	{
-		m_pSpaceShip->setTurnRate(turn_rate);
+		m_pCar->setTurnRate(turn_rate);
 	}
 	
 	if(ImGui::Button("Start"))
 	{
-		m_pSpaceShip->setEnabled(true);
+		m_pCar->setEnabled(true);
 	}
 
 	ImGui::SameLine();
 	
 	if (ImGui::Button("Reset"))
 	{
-		m_pSpaceShip->getTransform()->position = glm::vec2(100.0f, 100.0f);
-		m_pSpaceShip->setEnabled(false);
-		m_pSpaceShip->getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
-		m_pSpaceShip->setRotation(0.0f); // set angle to 0 degrees
+		m_pCar->getTransform()->position = glm::vec2(100.0f, 100.0f);
+		m_pCar->setEnabled(false);
+		m_pCar->getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
+		m_pCar->setRotation(0.0f); // set angle to 0 degrees
 		turn_rate = 5.0f;
 		acceleration_rate = 2.0f;
 		speed = 10.0f;
@@ -139,7 +139,7 @@ void PlayScene::GUI_Function() const
 	if(ImGui::SliderFloat2("Target", targetPosition, 0.0f, 800.0f))
 	{
 		m_pTarget->getTransform()->position = glm::vec2(targetPosition[0], targetPosition[1]);
-		m_pSpaceShip->setDestination(m_pTarget->getTransform()->position);
+		m_pCar->setDestination(m_pTarget->getTransform()->position);
 	}
 
 	ImGui::End();
