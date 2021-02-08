@@ -189,6 +189,7 @@
     <ClCompile Include="..\src\TextureManager.cpp" />
     <ClCompile Include="..\src\Util.cpp" />
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="Line.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\IMGUI\imconfig.h" />
@@ -238,6 +239,7 @@
     <ClInclude Include="..\src\Transform.h" />
     <ClInclude Include="..\src\Util.h" />
     <ClInclude Include="Car.h" />
+    <ClInclude Include="Line.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

@@ -37,7 +37,9 @@ private:
 	Obstacle* m_pObstacle;
 	
 	// UI Items
-	
+	Label* m_label1;
+	Label* m_label2;
+	Label* m_label3;
 };
 
 #endif /* defined (__PLAY_SCENE__) */
