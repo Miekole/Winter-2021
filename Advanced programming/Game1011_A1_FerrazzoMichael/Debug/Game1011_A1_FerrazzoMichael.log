@@ -1,0 +1,6 @@
+﻿  Survey.cpp
+F:\School\2021-Winter\Advanced programming\Game1011_A1_FerrazzoMichael\Survey.cpp(5,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  main.cpp
+F:\School\2021-Winter\Advanced programming\Game1011_A1_FerrazzoMichael\main.cpp(12,7): warning C4244: 'initializing': conversion from 'time_t' to 'int', possible loss of data
+  Generating Code...
+  Game1011_A1_FerrazzoMichael.vcxproj -> F:\School\2021-Winter\Advanced programming\Game1011_A1_FerrazzoMichael\Debug\Game1011_A1_FerrazzoMichael.exe

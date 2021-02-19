@@ -5,7 +5,7 @@
 
 using namespace std;
 
-enum Role { KNIGHT, GHOST, SKELETON, ROCK};
+enum Role { KNIGHT, GHOST, SKELETON, ROCK };
 
 class Character
 {
@@ -39,7 +39,7 @@ public:
 	{
 		this->name = name;
 	}
-	string GetName() const
+	virtual string GetName() const
 	{
 		return name;
 	}
@@ -61,9 +61,9 @@ public:
 	Knight(string name);
 
 	// Overide the getName 
-	virtual string GetName() const
+	string GetName() const
 	{
-		return "Sir. " + Character::GetName();
+		return "Sir. " + Character::GetName() + "\nInfo: 'The Dark Knight' is a  good movie that reached both critics and mainstream audiences.";
 	}
 	virtual void DisplayInfo() const
 	{
@@ -79,9 +79,9 @@ public:
 	Ghost(string name);
 
 	// Overide the getName 
-	virtual string GetName() const
+	string GetName() const
 	{
-		return "oOoOo " + Character::GetName() + " oOoOo";
+		return "oOoOo " + Character::GetName() + " oOoOo" + "\nInfo: BOO!scary :(";
 	}
 	virtual void DisplayInfo() const
 	{
@@ -93,11 +93,11 @@ class Skeleton : public Character
 {
 public:
 	Skeleton(string name);
-	
+
 	// Overide the getName 
-	virtual string GetName() const
+	string GetName() const
 	{
-		return "Pile of bones " + Character::GetName();
+		return "Pile of bones " + Character::GetName() + "\nInfo: *xylophone noises*";
 	}
 	virtual void DisplayInfo() const
 	{
@@ -109,11 +109,11 @@ class Rock : public  Character
 {
 public:
 	Rock(string name);
-	
+
 	// Overide the getName 
-	virtual string GetName() const
+	string GetName() const
 	{
-		return Character::GetName() + ", the rock, Jonson";
+		return Character::GetName() + ", the rock, Jonson" + "\nInfo: 'Success isn't always about 'greatness', it's about consistency. Consistent, hard work gains success.'' -Dwayne Johnson";
 	}
 	virtual void DisplayInfo() const
 	{
